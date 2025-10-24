@@ -1,5 +1,6 @@
 # CrawlxxvnMrLucky – Plugin Tự Động Crawl Phim cho WordPress
-
+[![GitHub release downloads](https://img.shields.io/github/downloads/mrlucky94/crawlxxvnmrlucky/latest/total?label=Used)](https://github.com/mrlucky94/crawlxxvnmrlucky/releases/latest)
+<br/> 
 **Tác giả:** [MrLucky](https://github.com/mrlucky94)  
 **Phiên bản:** 1.7  
 **License:** GNU GPL v2.0
