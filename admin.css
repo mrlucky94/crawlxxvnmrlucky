@@ -1,0 +1,13 @@
+.crawlxxvn-wrap{max-width:900px;background:#fff;padding:16px 24px;border-radius:8px;}
+.crawlxxvn-header{display:flex;align-items:center;border-bottom:1px solid #eee;padding-bottom:12px;margin-bottom:16px;}
+.crawlxxvn-logo{margin-right:24px;}
+.crawlxxvn-info h1{margin:0;font-size:2em;}
+.crawlxxvn-guide{margin:16px 0 24px;}
+.crawlxxvn-actions{margin-top:20px;}
+#crawlxxvn-crawl-form label{font-weight:normal}
+#crawlxxvn-progress{margin-top:20px;}
+.notice-success{background:#eafbe7;border-left:4px solid #21ba45;padding:8px 16px;margin-bottom:10px;}
+.notice-error{background:#fff6f6;border-left:4px solid #db2828;padding:8px 16px;margin-bottom:10px;}
+table{border-collapse:collapse}
+th,td{padding:4px 8px;}
+th{background:#f4f4f4;}
