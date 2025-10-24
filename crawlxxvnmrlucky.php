@@ -77,7 +77,6 @@ function crawlxxvnmrlucky_admin_page() { ?>
     </div>
 <?php }
 
-// --- Helper: request API GET
 function crawlxxvn_remote_get($url) {
     $response = wp_remote_get($url, ['timeout' => 30]);
     if (is_wp_error($response)) return false;
@@ -85,7 +84,6 @@ function crawlxxvn_remote_get($url) {
     return json_decode($body, true);
 }
 
-// --- Helper: retry lấy dữ liệu vsphim nhiều lần
 function crawlxxvn_remote_get_with_retry($url, $max_retry = 6, $sleep = 2) {
     for ($i=0; $i<$max_retry; $i++) {
         $json = crawlxxvn_remote_get($url);
@@ -100,13 +98,13 @@ function crawlxxvn_remote_get_with_retry($url, $max_retry = 6, $sleep = 2) {
     return false;
 }
 
-// --- AJAX: Check API chuyên mục vsphim.com + bổ sung chuyên mục theo country
+
 add_action('wp_ajax_crawlxxvn_check_api', function() {
     check_ajax_referer('crawlxxvn_nonce', 'nonce');
     $source_api = $_POST['source_api'] ?? 'xxvnapi';
 
     if ($source_api=='vsphim') {
-        // Danh sách CHUYÊN MỤC (category)
+
         $vsphim_categories = [
             ['name'=>"Trung Quốc", 'slug'=>"phim-sex-trung-quoc"],
             ['name'=>"JAV", 'slug'=>"jav"],
@@ -123,7 +121,7 @@ add_action('wp_ajax_crawlxxvn_check_api', function() {
             ['name'=>"Loli", 'slug'=>"loli"
         ];
 
-        // Danh sách QUỐC GIA (country) — theo yêu cầu
+
         $vsphim_countries = [
             ['name'=>"Việt Nam", 'slug'=>"viet-nam"],   // sẽ thành slug "country:viet-nam" trong dropdown
             ['name'=>"Nhật Bản", 'slug'=>"nhat-ban"],
@@ -133,7 +131,6 @@ add_action('wp_ajax_crawlxxvn_check_api', function() {
         $categories = [];
         $total_all  = 0;
 
-        // Lấy số trang/tổng cho CATEGORY
         foreach($vsphim_categories as $cat) {
             $api = 'https://nguon.vsphim.com/api/danh-sach?category='.$cat['slug'].'&page=1';
             $json = crawlxxvn_remote_get_with_retry($api, 5, 2);
@@ -148,7 +145,6 @@ add_action('wp_ajax_crawlxxvn_check_api', function() {
             $total_all += $total_cat;
         }
 
-        // Lấy số trang/tổng cho COUNTRY (slug thêm tiền tố country:)
         foreach($vsphim_countries as $c) {
             $api = 'https://nguon.vsphim.com/api/danh-sach?country='.$c['slug'].'&page=1';
             $json = crawlxxvn_remote_get_with_retry($api, 5, 2);
@@ -175,14 +171,12 @@ add_action('wp_ajax_crawlxxvn_check_api', function() {
             'categories'=>$categories
         ]);
     } else {
-        // ---------- XXVNAPI.COM (cũ) ----------
+
         $api_url = 'https://www.xxvnapi.com/api/phim-moi-cap-nhat';
         $res = wp_remote_get($api_url, ['timeout'=>15]);
         $body = wp_remote_retrieve_body($res);
         $data = json_decode($body, true);
 
         $total = !empty($data['total']) ? $data['total'] : (is_array($data['movies']) ? count($data['movies']) : 0);
-
-        // Danh sách chuyên mục tĩnh
         $xxvn_categories = [
             ['name'=>
